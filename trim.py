@@ -17,7 +17,11 @@ def trim(fl,path,vt):
     vr,sns = vul_type(vt)
     nw_fl = []
     name = os.path.basename(fl)
-    vul = [f.strip() for f in open(fl).readlines()]
+    # vul = [f.strip() for f in open(fl).readlines()]
+    with open(fl, 'rb') as f:
+        ln = f.read()
+        vul = ln.decode('utf-8', 'replace').splitlines()
+
     for i,f in enumerate(vul):
         for s in vr:
             if f.find(s) > 0:
