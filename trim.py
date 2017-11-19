@@ -12,7 +12,7 @@ def vul_type(vt):
     
     return variables,sans
 
-def main(fl,vt,path): 
+def trim(fl,path,vt): 
     vr,sns = vul_type(vt)
     nw_fl = []
     vul = [f.strip() for f in open(fl).readlines()]
@@ -39,10 +39,11 @@ def main(fl,vt,path):
     with open(rs,'w') as res:
         for rr in result:
             res.write(rr+"\n")
-
+    print(rs)
 
 if __name__ == '__main__':
-    vt = sys.argv[2]
-    path = sys.argv[3]
     fl = sys.argv[1]
-    main(fl,vt,path)
+    path = sys.argv[2]
+    vt = sys.argv[3]
+    
+    trim(fl,path,vt)
