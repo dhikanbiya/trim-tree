@@ -3,7 +3,7 @@ import glob
 
 
 def get_files(path):
-    p = path + '/**/*.txt'
+    p = path + '/**/*.php'
     pt = list()
     for filename in glob.iglob(p, recursive=True):
         # file += os.path.basename(filename).split()
