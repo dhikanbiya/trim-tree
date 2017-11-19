@@ -5,14 +5,14 @@ def vul_type(vt):
     sans = []
     if vt == 'sqli':
         variables = ['mysql_query', 'pg_query', 'sqlite_query', 'sql']
-        sans = ['mysql_real_escape_string','pg_escape_string' 'sqlite_escape_string', 'escape']
+        sans = ['mysql_real_escape_string','pg_escape_string' 'sqlite_escape_string', 'escape','mysql_escape']
     elif vt == 'xss':
         variables = ['_GET', '_POST', '_COOKIE', '_REQUEST', '_SERVER', '_FILES']
         sans = ['htmlspecialchars', 'htmlentities', 'strip_tags']
     
     return variables,sans
 
-def main(fl,vt): 
+def main(fl,vt,path): 
     vr,sns = vul_type(vt)
     nw_fl = []
     vul = [f.strip() for f in open(fl).readlines()]
@@ -35,8 +35,14 @@ def main(fl,vt):
     result = [r for r in nw_fl if r not in excl]
     # print("========")
     print(result)
+    rs = path+'/'+fl+'.txt'
+    with open(rs,'w') as res:
+        for rr in result:
+            res.write(rr+"\n")
+
 
 if __name__ == '__main__':
     vt = sys.argv[2]
+    path = sys.argv[3]
     fl = sys.argv[1]
-    main(fl,vt)
+    main(fl,vt,path)
