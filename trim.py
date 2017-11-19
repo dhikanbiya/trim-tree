@@ -1,4 +1,5 @@
 import sys
+import os
 
 def vul_type(vt):
     variables = []
@@ -15,6 +16,7 @@ def vul_type(vt):
 def trim(fl,path,vt): 
     vr,sns = vul_type(vt)
     nw_fl = []
+    name = os.path.basename(fl)
     vul = [f.strip() for f in open(fl).readlines()]
     for i,f in enumerate(vul):
         for s in vr:
@@ -35,7 +37,7 @@ def trim(fl,path,vt):
     result = [r for r in nw_fl if r not in excl]
     # print("========")
     print(result)
-    rs = path+'/'+fl+'.txt'
+    rs = path+'/'+name+'_trimmed.txt'
     with open(rs,'w') as res:
         for rr in result:
             res.write(rr+"\n")
