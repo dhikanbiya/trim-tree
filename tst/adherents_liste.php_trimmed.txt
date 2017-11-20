@@ -1,0 +1,26 @@
+$sql = "SELECT d.rowid, d.login, d.lastname, d.firstname, d.societe as company, d.fk_soc,";
+$sql.= " d.datefin,";
+$sql.= " d.email, d.fk_adherent_type as type_id, d.morphy, d.statut,";
+$sql.= " t.libelle as type, t.cotisation";
+$sql.= " FROM ".MAIN_DB_PREFIX."adherent as d";
+if (! empty($search_categ) || ! empty($catid)) $sql.= ' LEFT JOIN '.MAIN_DB_PREFIX."categorie_member as cm ON d.rowid = cm.fk_member"; // We need this table joined to the select in order to filter by categ
+$sql.= ", ".MAIN_DB_PREFIX."adherent_type as t";
+$sql.= " WHERE d.fk_adherent_type = t.rowid ";
+if ($catid == -2)  $sql.= " AND cm.fk_categorie IS NULL";
+if ($search_categ == -2) $sql.= " AND cm.fk_categorie IS NULL";
+$sql.= " AND d.entity = ".$conf->entity;
+            $sql.=" AND (";
+            if (is_numeric($sall)) $sql.= "d.rowid = ".$sall." OR ";
+	$sql.=" AND t.rowid=".$type;
+	else $sql.=" AND 1 = 2";    // Always wrong
+	$sql.=" AND datefin >= '".$db->idate($now)."'";
+	$sql.=" AND (datefin IS NULL OR datefin < '".$db->idate($now)."')";
+	$resql = $db->query($sql);
+	if ($resql) $nbtotalofrecords = $db->num_rows($result);
+$sql.= $db->order($sortfield,$sortorder);
+$sql.= $db->plimit($conf->liste_limit+1, $offset);
+dol_syslog("get list sql=".$sql);
+$resql = $db->query($sql);
+if ($resql)
+	$num = $db->num_rows($resql);
+		$objp = $db->fetch_object($resql);
