@@ -1,5 +1,6 @@
 import sys
 import os
+from list_files import get_files
 
 def vul_type(vt):
     variables = []
@@ -13,7 +14,7 @@ def vul_type(vt):
     
     return variables,sans
 
-def trim(fl,path,vt): 
+def main(fl,path,vt): 
     vr,sns = vul_type(vt)
     nw_fl = []
     name = os.path.basename(fl)
@@ -48,8 +49,8 @@ def trim(fl,path,vt):
     print(rs)
 
 if __name__ == '__main__':
-    fl = sys.argv[1]
+    fl = get_files(sys.argv[1])
     path = sys.argv[2]
     vt = sys.argv[3]
-    
-    trim(fl,path,vt)
+    for f in fl:
+        main(f,path,vt)
