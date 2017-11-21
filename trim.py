@@ -5,11 +5,17 @@ def vul_type(vt):
     variables = []
     sans = []
     if vt == 'sqli':
-        variables = ['mysql_query', 'pg_query','sqlite_query', 'sql', '_GET', '_POST', ]
+        variables = ['mysql_query', 'pg_query','sqlite_query', 'sql', 'GET', 'POST', ]
         sans = ['mysql_real_escape_string','pg_escape_string' 'sqlite_escape_string', 'escape','mysql_escape']
     elif vt == 'xss':
-        variables = ['_GET', '_POST', '_COOKIE', '_REQUEST', '_SERVER', '_FILES']
+        variables = ['GET', 'POST', 'COOKIE', 'REQUEST', 'SERVER', 'FILES']
         sans = ['htmlspecialchars', 'htmlentities', 'strip_tags']
+    elif vt == 'all':
+        variables = ['mysql_query', 'pg_query', 'sqlite_query', 'sql',
+                     'GET', 'POST', 'COOKIE', 'REQUEST', 'SERVER', 'FILES']
+        sans = ['mysql_real_escape_string', 'pg_escape_string' 'sqlite_escape_string',
+                'escape', 'mysql_escape', 'htmlspecialchars', 'htmlentities', 'strip_tags']
+    
     
     return variables,sans
 
