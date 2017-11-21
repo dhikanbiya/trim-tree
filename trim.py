@@ -47,7 +47,7 @@ def trim(fl,path,vt):
     result = [r for r in nw_fl if r not in excl]
     # print("========")
     print(result)
-    rs = path+'/'+'_trimmed_'+name
+    rs = path+'/'+name.split('.')[0]+'_trimmed.php'
     with open(rs,'w') as res:
         for rr in result:
             res.write(rr+"\n")
