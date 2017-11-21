@@ -7,7 +7,6 @@ $pattern = "~(?:#|//)[^\r\n]*|/\*[\s\S]*?\*/~";
 $replacement = "";
 
 $sv = preg_replace($pattern, $replacement, $string);
-$save = fopen($folder.'/'.$index.'__'.basename($str).'_take_out_comments.txt', 'aw+');
+$save = fopen($folder.'/'.$index.'__nocomment_'.basename($str), 'aw+');
 fwrite($save, $sv);
 fclose($save);
-
