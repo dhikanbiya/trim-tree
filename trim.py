@@ -51,7 +51,7 @@ def trim(fl,path,vt):
     with open(rs,'w') as res:
         for rr in result:
             res.write(rr+"\n")
-    print(rs)
+    #print(rs)
 
 if __name__ == '__main__':
     fl = sys.argv[1]
